@@ -1,78 +1,104 @@
 0x03. Queuing System in JS
-This project focuses on building a queuing system using Node.js, Kue, Redis, and various ES6 features. The system handles job creation, job management, and stock/reservation management through APIs. Below is a summary of everything learned and implemented while completing the tasks.
+This project involves building a queuing system using Node.js, Kue, Redis, and several ES6 features. The system handles job creation, management, and stock/reservation functionalities through various APIs.
 
 Technologies Used
-Node.js: A JavaScript runtime used for building the server-side logic.
-Express.js: A minimal and flexible Node.js web application framework.
-Kue: A priority job queue backed by Redis.
-Redis: An in-memory key-value store used for queuing and caching.
-ES6 Features: Focused on arrow functions, async/await, spread/rest operators, and more modern JavaScript practices.
-Tasks Implemented
-1. Kue Setup
-We learned how to set up a queue using Kue. This involves creating jobs that can be processed asynchronously. Redis is utilized as a backend to manage the job queue efficiently.
+Node.js: JavaScript runtime environment for building server-side applications.
+Express.js: Web framework for building APIs.
+Kue: Redis-based priority job queue.
+Redis: In-memory data structure store used as a database and caching system.
+Mocha/Chai: Testing framework for unit and integration testing.
+ES6 Features: Arrow functions, async/await, spread/rest operators, and more.
+Table of Contents
+Project Overview
+Implemented Features
+Setup Instructions
+Key Learnings
+How to Run
+Testing
+Project Overview
+This project simulates a system where jobs are queued and processed asynchronously. Redis handles data caching, and Kue manages the job queue. It's useful for scenarios such as stock and seat reservation management where handling multiple requests efficiently is crucial.
 
-2. Writing the Job Creator
-Created a function named createPushNotificationsJobs. This function:
+Implemented Features
+1. Job Creation with Kue
+Functionality: A function createPushNotificationsJobs is created to handle job creation. The function:
+Accepts an array of jobs and a Kue queue.
+Validates the jobs array.
+Logs the creation, completion, failure, and progress of each job.
+2. Test Suite for Job Creation
+Testing Framework: Mocha and Chai are used to test the createPushNotificationsJobs function.
+Ensure jobs are added to the queue.
+Validate that errors are handled when an incorrect data type is passed.
+3. Stock Management with Redis
+Functionality: A stock management system that:
+Stores product details (ID, name, price, stock) in an array.
+Allows querying product stock using Redis.
+Implements routes to get product lists and manage stock reservations.
+4. Seat Reservation System
+Functionality: Built a system to manage seat reservations:
+Seats are initialized with a fixed number.
+Seat availability is managed using Redis.
+Jobs are queued using Kue to reserve seats.
+Setup Instructions
+Clone the repository:
 
-Accepts an array of jobs and a queue.
-Validates if jobs are in array format.
-Creates a job for each entry, logs its progress, and handles completion and failure events.
-Key Learnings:
-
-Handling job creation and tracking job states (completed, failed, etc.).
-Managing a queue with events and understanding the logging process in a job lifecycle.
-3. Writing the Tests
-Implemented tests for createPushNotificationsJobs to ensure:
-
-Error handling when jobs are not passed in as arrays.
-Job creation validation to confirm jobs are added to the queue.
-Key Learnings:
-
-Using Mocha and Chai for testing.
-Learning how to simulate and validate job creation without processing them.
-4. Stock Management with Redis
-Created a stock management system using Redis:
-
-Products Array: Stored product details such as price and stock.
-Redis Client: Implemented a Redis client to handle stock reservation.
-Routes: API routes to get product details and reserve items.
-Key Learnings:
-
-Using Redis to store and manage product stock.
-Creating RESTful APIs with Express to handle stock inquiries and reservations.
-5. Seat Reservation System
-Developed a seat reservation system with a queue for job processing:
-
-Redis: Managed seat availability.
-Kue Queue: Implemented job creation for reserving seats.
-Routes: Added endpoints to query seat availability, reserve seats, and process the job queue.
-Key Learnings:
-
-Handling concurrency and race conditions using queues.
-Managing limited resources (seats) and ensuring jobs are processed correctly.
-Key Features
-Job Creation: With Kue, jobs can be created dynamically and processed in the background.
-Stock and Reservation Management: A scalable system to manage product stock using Redis.
-Seat Reservation: Implemented a queuing system to reserve seats efficiently.
-ES6 Mastery: Implemented advanced features like async/await, arrow functions, spread/rest operators, and promisify for handling asynchronous code in Redis.
-How to Run the Project
-Install Dependencies:
+bash
+Copy code
+git clone https://github.com/<your-username>/0x03-queuing_system_in_js.git
+cd 0x03-queuing_system_in_js
+Install the dependencies:
 
 bash
 Copy code
 npm install
-Start Redis Server: Make sure Redis is installed and running. If not:
+Ensure Redis is installed and running:
 
 bash
 Copy code
 redis-server
-Run the Queuing System:
+Set up the environment: You will need Node.js and Redis installed locally.
+
+Key Learnings
+Job Queuing with Kue: Learned how to create and manage jobs with Kue, utilizing Redis to handle queued tasks asynchronously.
+Redis Integration: Used Redis for caching and handling the availability of products and seats.
+Express.js: Built several routes to interact with the queue and manage stock/reservations.
+ES6 Features: Applied modern JavaScript features such as:
+Arrow Functions: Shorter function syntax.
+Async/Await: For managing asynchronous operations.
+Spread and Rest Operators: For handling objects and arrays dynamically.
+How to Run
+Start Redis Server: Make sure Redis is installed and running:
 
 bash
 Copy code
-npm run dev <file_name.js>
-Run Tests:
+redis-server
+Run the project: To run individual scripts (for example, job creation or seat reservation):
+
+bash
+Copy code
+npm run dev <script-file.js>
+Example:
+
+bash
+Copy code
+npm run dev 8-job-main.js
+Available Routes:
+
+GET /list_products: Returns a list of all products.
+GET /list_products/
+: Returns the stock and details of a specific product.
+GET /reserve_product/
+: Reserves a product if stock is available.
+GET /available_seats: Returns the number of available seats.
+GET /reserve_seat: Reserves a seat if available and queues the reservation.
+GET /process: Processes the queue for seat reservations.
+Testing
+To run tests, use the following command:
 
 bash
 Copy code
 npm test
+The test suite covers:
+
+Validating job creation with Kue.
+Checking the stock management system.
+Ensuring error handling is correct for invalid inputs.
