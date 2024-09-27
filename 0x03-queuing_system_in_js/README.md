@@ -61,3 +61,61 @@ This project simulates a system where jobs are queued and processed asynchronous
    ```bash
    git clone https://github.com/<your-username>/0x03-queuing_system_in_js.git
    cd 0x03-queuing_system_in_js
+
+Install the dependencies:
+
+bash
+Copy code
+npm install
+Ensure Redis is installed and running:
+
+bash
+Copy code
+redis-server
+Set up the environment: You will need Node.js and Redis installed locally.
+
+Key Learnings
+Job Queuing with Kue: Learned how to create and manage jobs with Kue, utilizing Redis to handle queued tasks asynchronously.
+Redis Integration: Used Redis for caching and handling the availability of products and seats.
+Express.js: Built several routes to interact with the queue and manage stock/reservations.
+ES6 Features: Applied modern JavaScript features such as:
+Arrow Functions: Shorter function syntax.
+Async/Await: For managing asynchronous operations.
+Spread and Rest Operators: For handling objects and arrays dynamically.
+How to Run
+Start Redis Server: Make sure Redis is installed and running:
+
+bash
+Copy code
+redis-server
+Run the project: To run individual scripts (for example, job creation or seat reservation):
+
+bash
+Copy code
+npm run dev <script-file.js>
+Example:
+
+bash
+Copy code
+npm run dev 8-job-main.js
+Available Routes:
+
+GET /list_products: Returns a list of all products.
+GET /list_products/
+: Returns the stock and details of a specific product.
+GET /reserve_product/
+: Reserves a product if stock is available.
+GET /available_seats: Returns the number of available seats.
+GET /reserve_seat: Reserves a seat if available and queues the reservation.
+GET /process: Processes the queue for seat reservations.
+Testing
+To run tests, use the following command:
+
+bash
+Copy code
+npm test
+The test suite covers:
+
+Validating job creation with Kue.
+Checking the stock management system.
+Ensuring error handling is correct for invalid inputs.
